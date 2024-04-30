@@ -1,0 +1,30 @@
+.card-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: min(320px, 49%);
+  height: 300px;
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-radius: 16px;
+}
+.card-image {
+  max-width: 60%;
+  height: 80%;
+}
+
+.card-title {
+  margin: 0;
+  max-width: 90%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 480px) {
+  .card-container {
+    width: 100%;
+  }
+}

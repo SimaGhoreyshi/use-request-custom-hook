@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import loadingSvg from "./assets/loading.svg";
+
+import { Card } from "./components/card/Card.tsx";
+import { Button } from "./components/button/Button.tsx";
+import { useRequest } from "./hooks/useRequest/UseRequest.ts";
 
 function App() {
+  const { response, error, loading, refetch } = useRequest(
+    "https://fakestoreapi.com/products"
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      {!loading ? <Button onClick={refetch}>Refresh data</Button> : null}
+      <div className="main-page">
+        {loading ? <img src={loadingSvg} alt="loading" /> : null}
+        {error ? `An error occurred: ${error.message}` : null}
+        {!loading &&
+          !error &&
+          response.data?.map((item, index) => (
+            <Card image={item?.image} title={item.title} key={index} />
+          ))}
+      </div>
     </div>
   );
 }
